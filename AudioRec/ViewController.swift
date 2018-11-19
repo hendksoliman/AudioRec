@@ -15,6 +15,8 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
     var audioRecorder: AVAudioRecorder!
     
     var numberOfRecords = 0
+    
+    var player: AVAudioPlayer!
 
     @IBOutlet weak var buttonLabel: UIButton!
     
@@ -46,6 +48,27 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
             
             buttonLabel.setTitle("Start Recording", for: .normal)
         }
+    }
+    
+    //Play audio after Stopping recording.
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+        if flag {
+            print("finished")
+            print(recorder.url)
+            let audioData = NSData(contentsOf: recorder.url)
+            if (audioData) != nil {
+                // do something useful
+                do {
+                    player = try AVAudioPlayer(contentsOf: recorder.url)
+                    player.prepareToPlay()
+                    player.play()
+                } catch let error as NSError {
+                    print(error.description)
+                }
+            }
+            
+        }
+        
     }
     
     override func viewDidLoad() {
