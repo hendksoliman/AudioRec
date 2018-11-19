@@ -25,6 +25,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
         if audioRecorder == nil {
             numberOfRecords += 1
             let filename = getDirectory().appendingPathComponent("\(numberOfRecords).m4a")
+            print(filename)
             
             let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000 , AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
             
